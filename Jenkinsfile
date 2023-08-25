@@ -82,18 +82,18 @@ pipeline {
                nexusArtifactUploader(
                nexusVersion: 'nexus3',
                protocol: 'http',
-               nexusUrl: "${NEXUSIP}:{NEXUSPORT}",
+               nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
                groupId: 'QA',
                version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
                repository: "${RELEASE_REPO}",
                credentialsId: "${NEXUS_LOGIN}",
                artifacts: [
-               [artifactId: projectName,
+               [artifactId: 'vproapp',
                   classifier: '',
                   file: 'target/vprofile-v2.war',
                   type: 'war']
-        ]
-     )
+          ]
+       )
 
      }
 
@@ -103,4 +103,4 @@ pipeline {
 
 }
 
-}
+
