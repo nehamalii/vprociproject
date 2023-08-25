@@ -14,7 +14,7 @@ pipeline {
 		NEXUSIP = '172.31.49.27'
 		NEXUSPORT = '8081'
 		NEXUS_GRP_REPO = 'vpro-maven-group'
-                NEXUS_LOGIN = 'nexuslogin'
+        NEXUS_LOGIN = 'nexuslogin'
     }
 
     stages {
@@ -22,6 +22,26 @@ pipeline {
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
             }
+            post {
+                success {
+                    echo "Now Archiving."
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+            }
+        }
+
+        stage('Test'){
+            steps {
+                sh 'mvn -s settings.xml test'
+            }
+
+        }
+
+        stage('Checkstyle Analysis'){
+            steps {
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
+            }
         }
     }
 }
+
