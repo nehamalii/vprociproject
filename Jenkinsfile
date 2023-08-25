@@ -90,7 +90,7 @@ pipeline {
         artifacts: [
             [artifactId: projectName,
              classifier: '',
-             file: target/vprofile-v2.war',
+             file: 'target/vprofile-v2.war',
              type: 'war']
         ]
      )
